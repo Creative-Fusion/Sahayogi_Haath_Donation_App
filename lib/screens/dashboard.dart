@@ -22,6 +22,12 @@ class Dashboard extends StatelessWidget {
             },
             child: Text('Logout'),
           )
+            RaisedButton(
+            onPressed: () {
+             //do smthg
+            },
+            child: Text('signout'),
+          )
         ],
       ),
     );
