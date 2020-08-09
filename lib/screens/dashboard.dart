@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-
+import './activities/descriptionform.dart';
 class Dashboard extends StatelessWidget {
   static const id = 'dashboard';
   @override
@@ -21,12 +21,12 @@ class Dashboard extends StatelessWidget {
               FirebaseAuth.instance.signOut();
             },
             child: Text('Logout'),
-          )
+          ),
             RaisedButton(
             onPressed: () {
-             //do smthg
+             Navigator.of(context).pushNamed(DescriptionForm.id);
             },
-            child: Text('signout'),
+            child: Text('create activity'),
           )
         ],
       ),
