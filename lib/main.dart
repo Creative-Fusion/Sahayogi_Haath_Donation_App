@@ -10,6 +10,8 @@ import './screens/login/login_main.dart';
 import './screens/explore.dart';
 import './constants.dart';
 import './screens/activities/descriptionform.dart';
+import './screens/activities/activitiesScreen.dart';
+
 void main() {
   runApp(SahayogiHaath());
 }
@@ -52,6 +54,7 @@ class SahayogiHaath extends StatelessWidget {
           Dashboard.id: (ctx) => Dashboard(),
           Explore.id: (ctx) => Explore(),
           DescriptionForm.id: (ctx) => DescriptionForm(),
+          ActivitiesScreen.id: (ctx) => ActivitiesScreen(),
         });
   }
 }
