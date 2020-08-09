@@ -1,13 +1,12 @@
-
 import 'package:flutter/material.dart';
 import 'package:sahayogihaath/constants.dart';
-
 
 class ActivitiesScreen extends StatefulWidget {
   static const id = 'activitiesscreen';
   @override
   _ActivitiesScreenState createState() => _ActivitiesScreenState();
 }
+
 class _ActivitiesScreenState extends State<ActivitiesScreen> {
   bool isFavorite = false;
   @override
@@ -17,6 +16,7 @@ class _ActivitiesScreenState extends State<ActivitiesScreen> {
     void toggleiconstate() {
       isFavorite = !isFavorite;
     }
+
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
@@ -71,13 +71,10 @@ class _ActivitiesScreenState extends State<ActivitiesScreen> {
                               : Icons.favorite_border),
                           iconSize: mediaQuery.size.height * 0.07,
                           color: Colors.red,
-                         disabledColor: Colors.black,
-                        
-                          onPressed: (){
-                          toggleiconstate();
-                 
-                          }
-                        )
+                          disabledColor: Colors.black,
+                          onPressed: () {
+                            toggleiconstate();
+                          })
                     ])),
             Container(
                 margin:
@@ -112,19 +109,17 @@ class _ActivitiesScreenState extends State<ActivitiesScreen> {
                   ),
                 )),
             Container(
-              width: double.infinity,
-              height: mediaQuery.size.height * 0.4,
-              margin:
-                  EdgeInsets.only(left: 8.0, top: 5.0, right: 8.0, bottom: 5.0),
-              decoration: BoxDecoration(
-                color: Colors.white10,
-              ),
-            
-              child: Text(
-    
-                 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-                 style: kFinalTextStyle,
-//               
+                width: double.infinity,
+                height: mediaQuery.size.height * 0.4,
+                margin: EdgeInsets.only(
+                    left: 8.0, top: 5.0, right: 8.0, bottom: 5.0),
+                decoration: BoxDecoration(
+                  color: Colors.white10,
+                ),
+                child: Text(
+                  'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+                  style: kFinalTextStyle,
+//
 //              Firestore.instance.collection('activities/
 // 2dnhSjQrkyCKwZBGREUE
 // ').snapshots().listen((data){
@@ -134,15 +129,13 @@ class _ActivitiesScreenState extends State<ActivitiesScreen> {
 
 // });
 
-// 
-//                 
-              )
-                
-                 // maxLines: 9,
+//
+//
+                )
+
+                // maxLines: 9,
                 ),
-                // // overflow: TextOverflow.ellipsis,
-             
-             
+            // // overflow: TextOverflow.ellipsis,
           ],
         ),
       ),
