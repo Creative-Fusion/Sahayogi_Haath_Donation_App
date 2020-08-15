@@ -31,6 +31,8 @@ dependencies:
   flutter_svg: ^0.18.0
   image_picker: ^0.6.7+4
   cupertino_icons: ^0.1.3
+  font_awesome_flutter: ^8.5.0
+
 
 dev_dependencies:
   flutter_test:
@@ -50,7 +52,7 @@ flutter:
   assets:
     - assets/icons/
     - assets/curves/
-    - assets/images1/children.jpg
+    - assets/images1/
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
   # For details regarding adding assets from package dependencies, see

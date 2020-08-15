@@ -100,3 +100,24 @@ final kDashboardOrgTypeTextStyle= TextStyle(
       letterSpacing: 0.5,
       color: Color(0xff333333),
 );  
+
+final tRecentsText1Theme= TextStyle(
+  fontStyle: FontStyle.normal,
+  fontWeight: FontWeight.normal,
+  color: Color(0xff5e5e5e),
+  letterSpacing: 0.2,
+);
+
+final cHomeListContainerDecoration= BoxDecoration(
+  // color: Color(0xfff8f8f8),
+  color: Colors.grey,
+  boxShadow: [BoxShadow(color: Color(0xffffffff),offset: Offset(2, 4),blurRadius: 0)],
+  borderRadius: BorderRadius.circular(6),
+);
+
+final tRecentsText2Theme= TextStyle(
+  fontStyle: FontStyle.normal,
+  fontWeight: FontWeight.w500,
+  letterSpacing: 0.2,
+  color: Color(0xff000000),
+);
