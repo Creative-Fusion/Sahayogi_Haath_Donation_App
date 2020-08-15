@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import './activities/descriptionform.dart';
+import './organizationInfo.dart/aboutus.dart';
+
 class Dashboard extends StatelessWidget {
   static const id = 'dashboard';
   @override
@@ -27,6 +29,12 @@ class Dashboard extends StatelessWidget {
              Navigator.of(context).pushNamed(DescriptionForm.id);
             },
             child: Text('create activity'),
+          ),
+            RaisedButton(
+            onPressed: () {
+             Navigator.of(context).pushNamed(OrganizationScreen.id);
+            },
+            child: Text('organization info'),
           )
         ],
       ),
