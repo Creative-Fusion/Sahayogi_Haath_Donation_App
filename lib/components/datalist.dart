@@ -25,7 +25,7 @@ List <Activities> activitydata = [
 
   Activities(
      title: 'Clothes Distribution to Poor Kids',
-      image: 'jelleke.jpg',
+      image: 'images1/jelleke.jpg',
       author: 'BY:Helping Hands',
       date: '1 July 2020',
       likes: 65,
@@ -34,7 +34,7 @@ List <Activities> activitydata = [
 
    Activities(
       title: 'Elderly Care Refurnished',
-      image: 'janko.jpg',
+      image: 'images1/janko.jpg',
       author: 'By:Hamro Sewa Kendra',
       date: '23 June 2020',
       likes: 227,

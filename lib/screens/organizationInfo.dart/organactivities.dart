@@ -4,12 +4,13 @@ import 'package:sahayogihaath/components/datalist.dart';
 import 'package:sahayogihaath/constants.dart';
 
 
-class ActivityScreen extends StatefulWidget {
+class OrganizationActivity extends StatefulWidget {
+  static const id = 'organizationactivity';
   @override
-  _ActivityScreenState createState() => _ActivityScreenState();
+  _OrganizationActivityState createState() => _OrganizationActivityState();
 }
 
-class _ActivityScreenState extends State<ActivityScreen> {
+class _OrganizationActivityState extends State<OrganizationActivity> {
   List<IconData> _icons = [
     FontAwesomeIcons.clock,
     FontAwesomeIcons.heart,
@@ -36,7 +37,7 @@ class _ActivityScreenState extends State<ActivityScreen> {
             ListView.builder(
               scrollDirection: Axis.vertical,
               shrinkWrap: true,
-              padding: EdgeInsets.only(top: 50.0, bottom: 15.0),
+              padding: EdgeInsets.only(top: 10.0, bottom: 15.0),
               itemCount: activitydata.length,
               itemBuilder: (context, int index) {
                 Activities activity = activitydata[index];

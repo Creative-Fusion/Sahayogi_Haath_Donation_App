@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:sahayogihaath/screens/organizationInfo.dart/aboutus.dart';
+import './screens/organizationInfo.dart/organactivities.dart';
 
 import './screens/welcome/welcome.dart';
 import './screens/signup/signup_main.dart';
@@ -56,7 +56,7 @@ class SahayogiHaath extends StatelessWidget {
           Explore.id: (ctx) => Explore(),
           DescriptionForm.id: (ctx) => DescriptionForm(),
           ActivitiesScreen.id: (ctx) => ActivitiesScreen(),
-          OrganizationScreen.id:(ctx)=> OrganizationScreen(),
+          OrganizationActivity.id:(ctx) => OrganizationActivity(),
         });
   }
 }

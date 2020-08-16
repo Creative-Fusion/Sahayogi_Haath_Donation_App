@@ -9,6 +9,7 @@
         android:name="io.flutter.app.FlutterApplication"
         android:label="sahayogihaath"
         android:icon="@mipmap/ic_launcher">
+        <!-- android:theme="@style/Theme.AppCompat.Light.NoActionBar" -->
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"
