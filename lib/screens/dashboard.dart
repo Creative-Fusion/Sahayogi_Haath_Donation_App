@@ -3,7 +3,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:sahayogihaath/screens/organizationInfo.dart/organactivities.dart';
 import './activities/descriptionform.dart';
 import './organizationInfo.dart/organactivities.dart';
-// import 'package:esewa_pnp/esewa_pnp.dart';
 
 class Dashboard extends StatelessWidget {
   static const id = 'dashboard';
@@ -26,15 +25,15 @@ class Dashboard extends StatelessWidget {
             },
             child: Text('Logout'),
           ),
-            RaisedButton(
+          RaisedButton(
             onPressed: () {
-             Navigator.of(context).pushNamed(DescriptionForm.id);
+              Navigator.of(context).pushNamed(DescriptionForm.id);
             },
             child: Text('create activity'),
           ),
-            RaisedButton(
+          RaisedButton(
             onPressed: () {
-             Navigator.of(context).pushNamed(OrganizationActivity.id);
+              Navigator.of(context).pushNamed(OrganizationActivity.id);
             },
             child: Text('organization info'),
           ),
@@ -49,26 +48,3 @@ class Dashboard extends StatelessWidget {
     );
   }
 }
-//   _initPayment(Map<String, dynamic> donate)async{
-//     EsewaConfiguration _configuration = EsewaConfiguration(
-//        clientID: "JB0BBQ4aD0UqIThFJwAKBgAXEUkEGQUBBAwdOgABHD4DChwUAB0R",
-//     secretKey: "BhwIWQQADhIYSxILExMcAgFXFhcOBwAKBgAXEQ==",
-//     environment: ESewaConfiguration.ENVIRONMENT_TEST //ENVIRONMENT_LIVE
-// );
-// ESewaPnp _eSewaPnp = ESewaPnp(configuration: _configuration);
-    
-// ESewaPayment _payment = ESewaPayment(
-//     amount: 10,
-//     productName: SahayogiHaath,
-//     productID: SahayogiHaath,
-//     callBackURL: "http://example.com"
-// );
-
-// final _res = await _eSewaPnp.initPayment(payment: _payment);
-
-// _res.fold((failure){}, (result) {
-// print("successful");
-// });
-
-//   }
-// }
