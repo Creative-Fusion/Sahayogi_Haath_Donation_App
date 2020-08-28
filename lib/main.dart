@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:provider/provider.dart';
+import 'package:sahayogihaath/provider/firestore/database/user.dart';
 
 import './routes.dart';
 import './screens/welcome/welcome.dart';
@@ -12,10 +13,7 @@ import './provider/auth_provider.dart';
 
 void main() {
   runApp(
-      ChangeNotifierProvider<AuthProvider>(
-        create: (context) => AuthProvider(),
-        child: SahayogiHaath(),
-      ),
+    SahayogiHaath(),
   );
 }
 
@@ -24,7 +22,16 @@ class SahayogiHaath extends StatelessWidget {
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
 
-    return MaterialApp(
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (context) => AuthProvider(),
+        ),
+        Provider<UserDatabase>(
+          create: (context)=> UserDatabase(),
+        )
+      ],
+        child: MaterialApp(
         title: 'Sahayogi Haath',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
@@ -51,6 +58,7 @@ class SahayogiHaath extends StatelessWidget {
           },
         ),
         routes: Routes.routes,
+      ),
     );
   }
 }

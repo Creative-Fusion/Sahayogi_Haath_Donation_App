@@ -5,6 +5,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
+import 'package:sahayogihaath/provider/firestore/database/user.dart';
 
 import '../routes.dart';
 import '../models/usermodel.dart';
@@ -25,10 +27,24 @@ class AuthProvider extends ChangeNotifier {
 
   FirebaseUser user;
 
+  Map<String,dynamic> userData;
+  
   Status get status => _status;
 
   AuthProvider() {
     _auth = FirebaseAuth.instance;
+  }
+
+  Future<void> getUserData() async{
+    user = await _auth.currentUser();
+
+    await Firestore.instance.collection('users').document(user.uid).get().then((doc){
+      if(doc.exists){
+        userData= doc.data;
+      } else{
+        print('No Doc Found');
+      }
+    });
   }
 
   Future<void> registerWithEmailAndPasword(
@@ -59,11 +75,11 @@ class AuthProvider extends ChangeNotifier {
           imageUrl = value;
         });
 
-        String typeOfUser= 'donor';
+        String typeOfUser = 'donor';
         String documentUrl;
 
-        if(userType==UserType.organization) {
-          typeOfUser= 'organization';
+        if (userType == UserType.organization) {
+          typeOfUser = 'organization';
           await ImageUploader()
               .uploadImage(
                   image: documentImage, path: CloudPath.document, userId: uid)
@@ -71,31 +87,34 @@ class AuthProvider extends ChangeNotifier {
             documentUrl = value;
           });
         }
-        Map <String,dynamic> userDetails;
-        if(typeOfUser == 'donor') {
-          userDetails = {
-            'name': name,
-            'email': email,
-            'phone': phone,
-            'address': address,
-            'profile_image': imageUrl,
-            'user_type': typeOfUser,
-            'isAdmin': false,
-          };
-        } else if(typeOfUser == 'organization') {
-          userDetails= {
-            'name': name,
-            'email': email,
-            'phone': phone,
-            'address': address,
-            'established_date': establishedDate,
-            'type': type,
-            'profile_image': imageUrl,
-            'document_image': documentUrl,
-            'user_type': typeOfUser,
-          };
+
+        final userDatabase = Provider.of<UserDatabase>(ctx,listen: false);
+
+        if (typeOfUser == 'donor') {
+          userDatabase.registerDonor(
+              DonorModel(
+                  name: name,
+                  email: email,
+                  address: address,
+                  phone: phone,
+                  profileImage: imageUrl,
+                  userType: typeOfUser),
+              uid: uid);
+        } else if (typeOfUser == 'organization') {
+          userDatabase.registerOrganization(
+            OrganizationModel(
+                name: name,
+                email: email,
+                address: address,
+                phone: phone,
+                establishedDate: establishedDate,
+                profileImage: imageUrl,
+                type: type,
+                userType: typeOfUser,
+                documentImage: documentUrl),
+            uid: uid,
+          );
         }
-        await Firestore.instance.collection('users').document(uid).setData(userDetails);
 
         sendEmailVerification(ctx);
       }
@@ -119,12 +138,14 @@ class AuthProvider extends ChangeNotifier {
     }
   }
 
-  Future signInWithEmailAndPassword(String email, String password, BuildContext ctx) async {
+  Future signInWithEmailAndPassword(
+      String email, String password, BuildContext ctx) async {
     try {
       _status = Status.Authenticating;
       notifyListeners();
       await _auth.signInWithEmailAndPassword(email: email, password: password);
-      
+
+      // await getUserData();
       sendEmailVerification(ctx);
     } on PlatformException catch (err) {
       var message = 'An error occurred, pelase check your credentials!';
@@ -140,55 +161,62 @@ class AuthProvider extends ChangeNotifier {
       );
       _status = Status.Unauthenticated;
     } catch (e) {
-      print("Error on the sign in = " +e.toString());
+      print("Error on the sign in = " + e.toString());
       _status = Status.Unauthenticated;
       notifyListeners();
     }
   }
 
-  Future sendEmailVerification(BuildContext ctx) async{
-    try{
-      user= await _auth.currentUser();
-      if(!user.isEmailVerified){
+  Future sendEmailVerification(BuildContext ctx) async {
+    try {
+      user = await _auth.currentUser();
+      if (!user.isEmailVerified) {
         Scaffold.of(ctx).showSnackBar(
           SnackBar(
-            content: Text('Please verify your email first and then try logging in again.'),
+            content: Text(
+                'Please verify your email first and then try logging in again.'),
             backgroundColor: Colors.red[600],
           ),
         );
-        
-        await user.sendEmailVerification().whenComplete(() => print('Mail Sent')).catchError((e){
+
+        await user
+            .sendEmailVerification()
+            .whenComplete(() => print('Mail Sent'))
+            .catchError((e) {
           Scaffold.of(ctx).showSnackBar(
             SnackBar(
-              content: Text('Error sending mail. Make sure the email address is correct and please try again later.'),
+              content: Text(
+                  'Error sending mail. Make sure the email address is correct and please try again later.'),
               backgroundColor: Colors.red[600],
             ),
           );
         });
-        
+
         await signOut();
         Navigator.of(ctx).pushReplacementNamed(Routes.login);
-      } else{
+      } else {
         print('Verified User');
         Navigator.of(ctx).pushReplacementNamed(Routes.dashboard);
       }
-    } catch(e){
+    } catch (e) {
       print(e);
     }
   }
 
-  Future sendPasswordResetEmail(email,ctx) async{
+  Future sendPasswordResetEmail(email, ctx) async {
     await _auth.sendPasswordResetEmail(email: email).whenComplete(() {
       Scaffold.of(ctx).showSnackBar(
         SnackBar(
-          content: Text('A link to reset the password has been sent to your email.'),
+          content:
+              Text('A link to reset the password has been sent to your email.'),
           backgroundColor: Colors.green[600],
         ),
       );
-    }).catchError((error){
+    }).catchError((error) {
       Scaffold.of(ctx).showSnackBar(
         SnackBar(
-          content: Text('Error sending mail. Make sure the email address is correct and please try again later.'),
+          content: Text(
+              'Error sending mail. Make sure the email address is correct and please try again later.'),
           backgroundColor: Colors.red[600],
         ),
       );
@@ -198,7 +226,8 @@ class AuthProvider extends ChangeNotifier {
   Future signOut() async {
     _auth.signOut();
     _status = Status.Unauthenticated;
-    user=null;
+    user = null;
+    userData=null;
     notifyListeners();
     return Future.delayed(Duration.zero);
   }
